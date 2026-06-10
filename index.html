@@ -1,0 +1,2873 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Smarter Day — Interní Shopsys Hackathon</title>
+<meta name="description" content="Jeden pátek. Čtyři tracky. Reálná zlepšení místo PowerPointů. Interní hackathon Shopsysu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600;1,6..72,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* ============================================================
+   WORK SMARTER DAY · Shopsys Internal Hackathon
+   ------------------------------------------------------------
+   Paper · ink · tangerine stamp · highlighter yellow
+   Bricolage Grotesque + Fraunces + JetBrains Mono
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --paper:        #F1EBDC;
+  --paper-2:      #E6DDC4;
+  --paper-3:      #D9CCAB;
+  --ink:          #16140F;
+  --ink-2:        #3A332A;
+  --ink-soft:     #6B5F4F;
+  --stamp:        #D9381E;
+  --stamp-dark:   #A82713;
+  --highlight:    #F2CC3B;
+  --highlight-2:  #FFE066;
+  --moss:         #1F4A2E;
+  --moss-2:       #2D6A45;
+  --display:      'Bricolage Grotesque', system-ui, sans-serif;
+  --serif:        'Newsreader', Georgia, serif;
+  --serif-display:'Playfair Display', Georgia, serif;
+  --mono:         'JetBrains Mono', ui-monospace, monospace;
+  --container:    1280px;
+  --radius:       2px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--display);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Paper grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0.10;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+
+/* Page edges - subtle paper crease */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 199;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(22, 20, 15, 0.10) 100%);
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; }
+
+button { font: inherit; cursor: pointer; }
+
+/* ---------------------------------------------------------
+   Utility
+   --------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.mono { font-family: var(--mono); }
+.serif { font-family: var(--serif); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hl {
+  background: linear-gradient(180deg, transparent 60%, var(--highlight) 60%, var(--highlight) 92%, transparent 92%);
+  padding: 0 0.08em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Display italic — Playfair Display for big headline em-tags.
+   Body serif (Newsreader) stays as var(--serif). */
+.hero__title em,
+.manifesto__title,
+.data__title em,
+.tracks__title em,
+.track__title-glyph,
+.program__title em,
+.timeline__title em,
+.memo-wrap__title em,
+.faq__title em,
+.signup__title em,
+.signup__bg,
+.footer__brand em {
+  font-family: var(--serif-display);
+  font-variation-settings: normal;
+}
+
+/* ---------------------------------------------------------
+   Top navigation
+   --------------------------------------------------------- */
+
+.nav {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 1.5rem;
+  background: rgba(241, 235, 220, 0.86);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.nav__brand {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.nav__dot {
+  width: 11px;
+  height: 11px;
+  background: var(--stamp);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(217, 56, 30, 0.18);
+  animation: pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.4); opacity: 0.55; }
+}
+
+.nav__links {
+  display: none;
+  gap: 1.35rem;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+@media (min-width: 980px) {
+  .nav__links { display: flex; }
+}
+.nav__links a {
+  text-decoration: none;
+  position: relative;
+  padding: 0.2rem 0;
+  transition: color 0.2s;
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: var(--stamp);
+  transition: right 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.nav__links a:hover::after { right: 0; }
+
+.nav__cta {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1.5px solid var(--ink);
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.nav__cta:hover {
+  background: var(--stamp);
+  border-color: var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.nav__cta-arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.nav__cta:hover .nav__cta-arrow { transform: translateX(3px); }
+
+/* ---------------------------------------------------------
+   Top scrolling marquee
+   --------------------------------------------------------- */
+
+.marquee {
+  margin-top: 72px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 0;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.marquee__viewport {
+  display: flex;
+  white-space: nowrap;
+}
+
+.marquee__track {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+  animation: marquee 42s linear infinite;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.marquee__track > span { display: inline-flex; align-items: center; gap: 1.5rem; }
+.marquee__star { color: var(--stamp); font-size: 0.85em; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* ---------------------------------------------------------
+   HERO
+   --------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  padding: calc(72px + 3rem) 1.5rem 5rem;
+  overflow: hidden;
+}
+
+.hero__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  position: relative;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.6rem;
+}
+.hero__eyebrow .line {
+  flex: 0 0 60px;
+  height: 1.5px;
+  background: var(--ink);
+}
+
+.hero__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 8vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  font-variation-settings: "wdth" 100;
+  color: var(--ink);
+}
+.hero__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+  letter-spacing: -0.04em;
+  display: inline-block;
+  position: relative;
+}
+.hero__title em::before {
+  content: '';
+  position: absolute;
+  inset: 18% -3% 14% -3%;
+  background: var(--highlight);
+  z-index: -1;
+  transform: skew(-2deg, -1deg);
+}
+
+.hero__title-row {
+  display: block;
+}
+
+/* "Pro vývojáře i ne-vývojáře" banner */
+.hero__forall {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-top: 2.25rem;
+  padding: 0.7rem 1.05rem;
+  border: 1.5px solid var(--ink);
+  background: var(--highlight);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.hero__forall-tag {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.32rem 0.6rem;
+  white-space: nowrap;
+}
+.hero__forall-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.3;
+  font-variation-settings: "opsz" 24;
+}
+.hero__forall-text b { font-weight: 800; font-style: normal; }
+
+.hero__sub {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: end;
+}
+@media (min-width: 880px) {
+  .hero__sub {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.hero__lead {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.4;
+  max-width: 38ch;
+  font-variation-settings: "opsz" 30, "SOFT" 30;
+}
+.hero__lead .strong {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.hero__meta {
+  border-top: 1.5px solid var(--ink);
+  padding-top: 1rem;
+}
+.hero__meta-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.hero__meta-value {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.hero__meta-tail {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+}
+
+.hero__ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+@media (min-width: 560px) {
+  .hero__ctas { flex-direction: row; }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1rem 1.4rem;
+  text-decoration: none;
+  border: 1.5px solid var(--ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s, color 0.18s;
+  position: relative;
+  white-space: nowrap;
+}
+.btn:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.btn--primary {
+  background: var(--stamp);
+  color: var(--paper);
+}
+.btn--primary:hover {
+  background: var(--ink);
+}
+.btn--ghost {
+  background: var(--paper);
+  color: var(--ink);
+}
+.btn--ghost:hover {
+  background: var(--highlight);
+}
+.btn__arrow { transition: transform 0.2s; }
+.btn:hover .btn__arrow { transform: translateX(4px); }
+
+/* Rotating disc badge (hero) */
+.disc {
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
+  width: 170px;
+  height: 170px;
+  pointer-events: none;
+  animation: rotate 22s linear infinite;
+  z-index: 5;
+}
+@media (min-width: 600px) { .disc { width: 200px; height: 200px; top: 0; right: 1rem; } }
+@media (min-width: 1024px) { .disc { width: 240px; height: 240px; top: -1rem; right: 0; } }
+.disc text {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  fill: var(--ink);
+  text-transform: uppercase;
+}
+.disc__center {
+  fill: var(--stamp);
+}
+.disc__icon {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 800;
+  fill: var(--paper);
+}
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+
+.hero__scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 4rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.hero__scroll-line {
+  width: 50px;
+  height: 1px;
+  background: var(--ink-soft);
+  position: relative;
+  overflow: hidden;
+}
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  animation: scroll-line 2.6s ease-in-out infinite;
+}
+@keyframes scroll-line {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ---------------------------------------------------------
+   Manifesto
+   --------------------------------------------------------- */
+
+.manifesto {
+  position: relative;
+  padding: 5rem 1.5rem;
+  background: var(--paper-2);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.manifesto__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 900px) {
+  .manifesto__inner {
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
+}
+
+.manifesto__title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+}
+.manifesto__title small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-style: normal;
+  color: var(--ink-soft);
+  margin-bottom: 1.2rem;
+}
+
+.manifesto__body {
+  font-family: var(--serif);
+  font-size: 1.18rem;
+  line-height: 1.55;
+  max-width: 60ch;
+  font-variation-settings: "opsz" 30, "SOFT" 30;
+}
+.manifesto__body p + p { margin-top: 1.1rem; }
+.manifesto__body strong { font-weight: 700; }
+
+.stamp {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  border: 2.5px solid var(--stamp);
+  padding: 0.35rem 0.75rem;
+  transform: rotate(-3deg);
+  box-shadow: inset 0 0 0 1px var(--paper);
+  opacity: 0.92;
+  margin-top: 2rem;
+  position: relative;
+}
+
+/* ---------------------------------------------------------
+   Data section — the leadership convincer
+   --------------------------------------------------------- */
+
+.data {
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+
+.data__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.data__head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  align-items: end;
+}
+@media (min-width: 800px) {
+  .data__head {
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.data__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.data__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+
+.data__note {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  border-left: 3px solid var(--ink);
+  padding: 0.6rem 0 0.6rem 1rem;
+  max-width: 32ch;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+@media (min-width: 700px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1100px) {
+  .stats { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stat {
+  padding: 2.2rem 1.8rem 2rem;
+  border-right: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  position: relative;
+  background: var(--paper);
+  transition: background 0.3s ease;
+}
+.stat:last-child { border-right: none; }
+@media (max-width: 1099px) {
+  .stat:nth-child(2n) { border-right: none; }
+}
+@media (max-width: 699px) {
+  .stat { border-right: none; }
+}
+.stat:hover { background: var(--highlight); }
+
+.stat__num {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 8vw, 6.4rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 1.2rem;
+}
+.stat__num-suffix {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 0.42em;
+  margin-left: 0.12em;
+  letter-spacing: 0;
+}
+
+.stat__label {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.6rem;
+}
+
+.stat__sub {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.stat__corner {
+  position: absolute;
+  top: 0.9rem;
+  right: 1rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--stamp);
+}
+
+.data__caption {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.06em;
+}
+.data__caption strong { color: var(--ink); }
+
+/* ---------------------------------------------------------
+   Tracks
+   --------------------------------------------------------- */
+
+.tracks {
+  padding: 6rem 1.5rem;
+  background: var(--paper-2);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  position: relative;
+}
+
+.tracks__head {
+  max-width: var(--container);
+  margin-inline: auto 4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+  margin-bottom: 4rem;
+}
+@media (min-width: 800px) {
+  .tracks__head { grid-template-columns: auto 1fr; gap: 3rem; align-items: end; }
+}
+
+.tracks__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.tracks__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+
+.tracks__lead {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 44ch;
+  font-variation-settings: "opsz" 24;
+}
+
+.tracks__grid {
+  max-width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 760px) {
+  .tracks__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.track {
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  padding: 2rem 2rem 2.2rem;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-height: 360px;
+}
+.track:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.track__num {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--stamp);
+}
+
+.track__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.track__title-glyph {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+  font-size: 0.9em;
+  color: var(--stamp);
+}
+
+.track__desc {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+  font-variation-settings: "opsz" 24;
+}
+
+.track__example {
+  margin-top: auto;
+  padding: 1rem 1.1rem;
+  background: var(--paper-2);
+  border-left: 3px solid var(--ink);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.track__example::before {
+  content: 'NÁPADY →';
+  display: block;
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--stamp);
+  margin-bottom: 0.5rem;
+}
+.track__ideas {
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+.track__ideas li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.track__ideas li::before {
+  content: '→';
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 700;
+  color: var(--stamp);
+}
+.track__ideas .nondev {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--moss);
+  border: 1px solid var(--moss);
+  padding: 0.05rem 0.32rem;
+  margin-left: 0.35rem;
+  white-space: nowrap;
+  vertical-align: 0.08em;
+}
+
+.track__for {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.4rem;
+}
+.tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--ink);
+  background: transparent;
+}
+
+/* ---------------------------------------------------------
+   AI Toolbox · plný kredit
+   --------------------------------------------------------- */
+
+.toolbox {
+  padding: 6rem 1.5rem;
+  background: var(--paper);
+  position: relative;
+}
+
+.toolbox__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.toolbox__head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.8rem;
+  margin-bottom: 2.5rem;
+}
+@media (min-width: 880px) {
+  .toolbox__head {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: end;
+  }
+}
+
+.toolbox__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.toolbox__title em {
+  font-family: var(--serif-display);
+  font-style: italic;
+  font-weight: 900;
+  display: inline-block;
+  position: relative;
+}
+.toolbox__title em::before {
+  content: '';
+  position: absolute;
+  inset: 18% -3% 14% -3%;
+  background: var(--highlight);
+  z-index: -1;
+  transform: skew(-2deg, -1deg);
+}
+
+.toolbox__lead {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 42ch;
+}
+.toolbox__lead strong { font-weight: 700; }
+.toolbox__lead p + p { margin-top: 0.8rem; }
+
+.toolbox__ledger {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 0.7rem 0;
+  margin-bottom: 2rem;
+}
+.toolbox__ledger b {
+  color: var(--stamp);
+  font-weight: 700;
+}
+.toolbox__ledger s {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+.toolbox__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 620px) {
+  .toolbox__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 980px) {
+  .toolbox__grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.tool {
+  background: var(--paper-2);
+  border: 1.5px solid var(--ink);
+  padding: 1.35rem 1.3rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+  min-height: 220px;
+  position: relative;
+}
+.tool:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--paper);
+}
+
+.tool__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.tool__logo {
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: var(--highlight);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+
+.tool__badge {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  border: 1.5px solid var(--stamp);
+  padding: 0.22rem 0.42rem;
+  background: var(--paper);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.tool__name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+
+.tool__desc {
+  font-family: var(--serif);
+  font-size: 0.93rem;
+  line-height: 1.4;
+  color: var(--ink-2);
+  flex: 1;
+}
+
+.tool__use {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--ink);
+}
+
+.toolbox__note {
+  margin-top: 2rem;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--stamp);
+  padding: 0.5rem 0 0.5rem 1rem;
+  max-width: 64ch;
+}
+.toolbox__note strong { color: var(--ink); font-weight: 700; }
+.toolbox__note em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ---------------------------------------------------------
+   Program / schedule
+   --------------------------------------------------------- */
+
+.program {
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+
+.program__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.program__head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+  margin-bottom: 3rem;
+}
+@media (min-width: 800px) {
+  .program__head { grid-template-columns: 2fr 1fr; gap: 3rem; align-items: end; }
+}
+
+.program__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.program__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+}
+
+.program__note {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  border: 1.5px solid var(--ink);
+  background: var(--highlight);
+  padding: 0.8rem 1rem;
+  transform: rotate(1deg);
+  max-width: 22rem;
+  position: relative;
+}
+.program__note::before {
+  content: 'POZN.';
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  margin-right: 0.5rem;
+  color: var(--ink);
+}
+
+.timeline {
+  border-top: 2px solid var(--ink);
+}
+.timeline__row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1.5rem;
+  padding: 1.4rem 0;
+  border-bottom: 1.5px solid var(--ink);
+  transition: background 0.25s ease;
+}
+@media (min-width: 700px) {
+  .timeline__row {
+    grid-template-columns: 180px 1fr auto;
+    gap: 2rem;
+    align-items: baseline;
+  }
+}
+.timeline__row:hover { background: var(--paper-2); }
+
+.timeline__time {
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.timeline__title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.timeline__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+}
+
+.timeline__desc {
+  font-family: var(--serif);
+  font-size: 0.96rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin-top: 0.3rem;
+  max-width: 60ch;
+}
+
+.timeline__tag {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-top: 0.4rem;
+}
+
+/* ---------------------------------------------------------
+   Memo for management
+   --------------------------------------------------------- */
+
+.memo-wrap {
+  padding: 6rem 1.5rem;
+  background: var(--paper-3);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  position: relative;
+}
+
+.memo-wrap__header {
+  max-width: var(--container);
+  margin-inline: auto 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.memo-wrap__eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.memo-wrap__eyebrow::before {
+  content: '';
+  width: 30px;
+  height: 1.5px;
+  background: var(--stamp);
+}
+
+.memo-wrap__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.memo-wrap__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+}
+
+.memo {
+  max-width: 880px;
+  margin-inline: auto;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  padding: 2.5rem 2rem;
+  position: relative;
+  box-shadow: 8px 8px 0 var(--ink);
+  font-family: var(--mono);
+}
+@media (min-width: 700px) {
+  .memo { padding: 3rem 3.5rem; }
+}
+
+.memo__stamp {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  border: 3px solid var(--stamp);
+  padding: 0.4rem 0.85rem;
+  transform: rotate(8deg);
+  background: rgba(241, 235, 220, 0.7);
+  box-shadow: inset 0 0 0 2px var(--paper);
+  text-align: center;
+  line-height: 1.1;
+}
+.memo__stamp small {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  margin-top: 0.1rem;
+  opacity: 0.85;
+}
+
+.memo__head {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1.5px dashed var(--ink);
+}
+.memo__head dt {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  display: inline-block;
+  width: 70px;
+}
+.memo__head dd { display: inline; margin-left: 0.5rem; }
+.memo__head dd::after { content: ''; display: block; }
+
+.memo__intro {
+  font-family: var(--serif);
+  font-size: 1.18rem;
+  line-height: 1.55;
+  margin-bottom: 1.8rem;
+  font-variation-settings: "opsz" 30, "SOFT" 30;
+}
+
+.memo__bullets {
+  list-style: none;
+  display: grid;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.memo__bullets li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 1.5;
+  font-variation-settings: "opsz" 24;
+}
+.memo__bullets li::before {
+  content: '✓';
+  font-family: var(--mono);
+  font-weight: 700;
+  font-style: normal;
+  color: var(--stamp);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding-top: 0.15rem;
+}
+.memo__bullets strong { font-weight: 700; }
+
+.memo__compare {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  margin: 2rem 0;
+}
+@media (min-width: 600px) {
+  .memo__compare { grid-template-columns: 1fr 1fr; }
+}
+.memo__compare-cell {
+  padding: 1.4rem 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+.memo__compare-cell:first-child {
+  border-right: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+@media (max-width: 599px) {
+  .memo__compare-cell:first-child {
+    border-right: none;
+    border-bottom: 1.5px solid var(--ink);
+  }
+}
+.memo__compare-cell:last-child {
+  background: var(--paper-2);
+}
+.memo__compare-label {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.memo__compare-label--bad { color: var(--ink-soft); }
+.memo__compare-label--good { color: var(--moss); }
+.memo__compare-list {
+  list-style: none;
+  display: grid;
+  gap: 0.4rem;
+}
+.memo__compare-list li::before {
+  content: '— ';
+  color: var(--ink-soft);
+}
+
+.memo__sign {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1.5px dashed var(--ink);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.memo__sign-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: 0.4rem;
+  display: block;
+}
+.memo__sign-role {
+  color: var(--ink-soft);
+  margin-top: 0.1rem;
+}
+
+/* ---------------------------------------------------------
+   People / roles
+   --------------------------------------------------------- */
+
+.people {
+  padding: 6rem 1.5rem;
+  background: var(--paper-3);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  position: relative;
+}
+
+.people__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.people__head {
+  margin-bottom: 3.5rem;
+}
+.people__eyebrow {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.people__eyebrow::before {
+  content: '';
+  width: 30px;
+  height: 1.5px;
+  background: var(--stamp);
+}
+.people__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.people__title em {
+  font-family: var(--serif-display);
+  font-style: italic;
+  font-weight: 900;
+}
+
+.people__groups {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+@media (min-width: 800px) {
+  .people__groups { grid-template-columns: repeat(3, 1fr); }
+}
+
+.people__group {
+  padding: 2rem 1.8rem 2.2rem;
+  border-bottom: 1.5px solid var(--ink);
+}
+@media (min-width: 800px) {
+  .people__group {
+    border-bottom: none;
+    border-right: 1.5px solid var(--ink);
+  }
+  .people__group:last-child { border-right: none; }
+}
+@media (max-width: 799px) {
+  .people__group:last-child { border-bottom: none; }
+}
+
+.people__role {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 1rem;
+  margin-bottom: 1.4rem;
+  border-bottom: 1.5px dashed var(--ink);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.people__role span {
+  color: var(--stamp);
+  font-size: 0.9em;
+}
+
+.people__list {
+  list-style: none;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.person__avatar {
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.86rem;
+  background: var(--highlight);
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.person__name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.18rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.person--tbd .person__avatar {
+  background: var(--paper-2);
+  color: var(--ink-soft);
+}
+.person--tbd .person__name { color: var(--ink-soft); }
+
+/* ---------------------------------------------------------
+   FAQ
+   --------------------------------------------------------- */
+
+.faq {
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+
+.faq__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+@media (min-width: 900px) {
+  .faq__inner { grid-template-columns: 1fr 2fr; gap: 4rem; }
+}
+
+.faq__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.faq__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+}
+.faq__sub {
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  margin-top: 1rem;
+  line-height: 1.55;
+  max-width: 26ch;
+}
+
+.faq__list {
+  border-top: 2px solid var(--ink);
+}
+
+.faq__item {
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.faq__q {
+  width: 100%;
+  background: transparent;
+  border: none;
+  text-align: left;
+  padding: 1.4rem 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+.faq__q:hover { color: var(--stamp); }
+
+.faq__q-num {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--stamp);
+  flex-shrink: 0;
+}
+
+.faq__q-text { flex: 1; }
+
+.faq__q-toggle {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1;
+  width: 30px;
+  text-align: center;
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.faq__item[data-open="true"] .faq__q-toggle { transform: rotate(45deg); }
+
+.faq__a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.faq__a-inner {
+  padding: 0 0 1.5rem 2.6rem;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  font-variation-settings: "opsz" 24;
+  max-width: 60ch;
+}
+
+/* ---------------------------------------------------------
+   CTA / signup
+   --------------------------------------------------------- */
+
+.signup {
+  padding: 6rem 1.5rem;
+  background: var(--ink);
+  color: var(--paper);
+  position: relative;
+  overflow: hidden;
+  border-top: 1.5px solid var(--ink);
+}
+
+.signup__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.signup__eyebrow {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stamp);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.signup__eyebrow::before {
+  content: '';
+  width: 30px;
+  height: 1.5px;
+  background: var(--stamp);
+}
+
+.signup__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  max-width: 16ch;
+  margin-bottom: 2.5rem;
+}
+.signup__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+  color: var(--highlight);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+
+.signup__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+@media (min-width: 800px) {
+  .signup__grid { grid-template-columns: 1.4fr 1fr; gap: 4rem; }
+}
+
+.signup__lead {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-variation-settings: "opsz" 30, "SOFT" 30;
+  max-width: 50ch;
+}
+
+.signup__action {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.signup__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem;
+  background: var(--stamp);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--paper);
+  transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
+  width: 100%;
+}
+.signup__btn:hover {
+  background: var(--highlight);
+  color: var(--ink);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0 var(--paper);
+}
+.signup__btn--alt {
+  background: transparent;
+  border: 2px solid var(--paper);
+}
+.signup__btn--alt:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.signup__deadline {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: rgba(241, 235, 220, 0.65);
+  margin-top: 1rem;
+}
+
+/* Big background type */
+.signup__bg {
+  position: absolute;
+  bottom: -3rem;
+  right: -2rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+  font-size: clamp(8rem, 22vw, 22rem);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  color: rgba(241, 235, 220, 0.04);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   Footer
+   --------------------------------------------------------- */
+
+.footer {
+  padding: 3rem 1.5rem 2rem;
+  border-top: 1.5px solid var(--ink);
+  background: var(--paper-2);
+}
+
+.footer__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 700px) {
+  .footer__inner {
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.footer__brand {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+.footer__brand em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 900;
+}
+
+.footer__tagline {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  max-width: 36ch;
+  line-height: 1.5;
+}
+
+.footer__col-title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.8rem;
+}
+
+.footer__list {
+  list-style: none;
+  display: grid;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+}
+
+.footer__bottom {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1.5px dashed var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+@media (min-width: 700px) {
+  .footer__bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+.footer__bottom em {
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------
+   Reveal-on-scroll
+   --------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1),
+              transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal[data-delay="1"] { transition-delay: 0.08s; }
+.reveal[data-delay="2"] { transition-delay: 0.16s; }
+.reveal[data-delay="3"] { transition-delay: 0.24s; }
+.reveal[data-delay="4"] { transition-delay: 0.32s; }
+.reveal[data-delay="5"] { transition-delay: 0.40s; }
+
+/* ---------------------------------------------------------
+   Floating "psst" sticky-note (the goofy easter egg)
+   --------------------------------------------------------- */
+
+.sticky-note {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 60;
+  background: var(--highlight);
+  border: 1.5px solid var(--ink);
+  padding: 0.75rem 0.95rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  max-width: 220px;
+  transform: rotate(-3deg);
+  box-shadow: 3px 3px 0 var(--ink);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.sticky-note.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: rotate(-3deg) translateY(0);
+}
+.sticky-note:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+.sticky-note__close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--ink);
+  opacity: 0.6;
+}
+.sticky-note__close:hover { opacity: 1; }
+.sticky-note strong { font-weight: 700; }
+
+@media (max-width: 520px) {
+  .sticky-note { display: none; }
+}
+
+/* ---------------------------------------------------------
+   Reduced motion
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee__track { animation: none; }
+  .disc { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========================================================
+     NAV
+     ======================================================== -->
+<nav class="nav" aria-label="Hlavní">
+  <div class="nav__brand">
+    <span class="nav__dot" aria-hidden="true"></span>
+    Shopsys&nbsp;·&nbsp;WSD&nbsp;<span style="opacity:0.5">/</span>&nbsp;v.01
+  </div>
+  <div class="nav__links" aria-hidden="false">
+    <a href="#manifesto">Co to je</a>
+    <a href="#tracks">Tracky</a>
+    <a href="#toolbox">AI Toolbox</a>
+    <a href="#program">Program</a>
+    <a href="#lide">Lidé</a>
+  </div>
+  <a href="#signup" class="nav__cta">
+    Přihlásit se
+    <span class="nav__cta-arrow" aria-hidden="true">→</span>
+  </a>
+</nav>
+
+<main>
+
+<!-- ========================================================
+     HERO
+     ======================================================== -->
+<section class="hero" id="top">
+  <div class="hero__inner">
+
+    <!-- Rotating disc badge -->
+    <svg class="disc" viewBox="0 0 200 200" aria-hidden="true">
+      <defs>
+        <path id="circlePath" d="M 100,100 m -82,0 a 82,82 0 1,1 164,0 a 82,82 0 1,1 -164,0" />
+      </defs>
+      <circle cx="100" cy="100" r="92" fill="none" stroke="#16140F" stroke-width="1.5"/>
+      <circle cx="100" cy="100" r="68" fill="none" stroke="#16140F" stroke-width="1"/>
+      <text>
+        <textPath href="#circlePath" startOffset="0">
+          ★ WORK SMARTER DAY ★ INTERNÍ SHOPSYS HACKATHON ★ V.01 ★ WORK SMARTER DAY ★ INTERNÍ SHOPSYS HACKATHON ★
+        </textPath>
+      </text>
+      <circle class="disc__center" cx="100" cy="100" r="36"/>
+      <text class="disc__icon" x="100" y="111" text-anchor="middle">WSD</text>
+    </svg>
+
+    <div class="hero__eyebrow reveal">
+      <span class="line" aria-hidden="true"></span>
+      <span class="eyebrow">Interní Shopsys Hackathon · Edice 01</span>
+    </div>
+
+    <h1 class="hero__title">
+      <span class="hero__title-row reveal">WORK</span>
+      <span class="hero__title-row reveal" data-delay="1"><em>smarter</em></span>
+      <span class="hero__title-row reveal" data-delay="2">DAY.</span>
+    </h1>
+
+    <div class="hero__forall reveal" data-delay="2">
+      <span class="hero__forall-tag">Pro vývojáře i ne-vývojáře</span>
+      <span class="hero__forall-text">Nemusíš umět <b>řádek kódu</b>. Stačí znát problém, který chceš vyřešit.</span>
+    </div>
+
+    <div class="hero__sub">
+      <p class="hero__lead reveal" data-delay="3">
+        <span class="strong">AI speedrun</span> na věci, na které jindy není čas.
+        Žádné PowerPointy — jen reálná zlepšení postavená za den s&nbsp;pomocí AI.
+      </p>
+
+      <div class="hero__meta reveal" data-delay="4">
+        <div class="hero__meta-label">Kdy</div>
+        <div class="hero__meta-value">Pátek · 9–17 h</div>
+        <div class="hero__meta-tail">Datum bude potvrzeno po schválení.</div>
+      </div>
+
+      <div class="hero__meta reveal" data-delay="5">
+        <div class="hero__meta-label">Kde</div>
+        <div class="hero__meta-value">Ostrava&nbsp;HQ <span style="font-family:var(--serif);font-style:italic;font-weight:400">+ online</span></div>
+        <div class="hero__meta-tail">Fyzicky lepší pro týmovou atmosféru.</div>
+      </div>
+    </div>
+
+    <div class="hero__ctas reveal" data-delay="5">
+      <a href="#signup" class="btn btn--primary">
+        Chci se přihlásit
+        <span class="btn__arrow" aria-hidden="true">→</span>
+      </a>
+      <a href="#program" class="btn btn--ghost">
+        Jak vypadá ten den
+        <span class="btn__arrow" aria-hidden="true">↓</span>
+      </a>
+    </div>
+
+    <div class="hero__scroll reveal" data-delay="5" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="hero__scroll-line"></span>
+      <span>Důkazy uvnitř</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================================
+     MANIFESTO
+     ======================================================== -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto__inner">
+    <div class="reveal">
+      <h2 class="manifesto__title">
+        <small>§ 01 · Co to vlastně je</small>
+        Hackathon, který <br>není pro <em>nerdy.</em>
+      </h2>
+      <span class="stamp">Schváleno průzkumem ✓</span>
+    </div>
+
+    <div class="manifesto__body reveal" data-delay="1">
+      <p>
+        <strong>Work Smarter Day</strong> je jednodenní interní AI speedrun. Není to
+        soutěž v kódování — je to den, kdy si <strong>oficiálně dovolíme</strong>
+        řešit věci, které nás dlouhodobě tahají za nohu. Zapojit se může
+        kdokoliv: developer, PO, marketing, HR, QA — každý, kdo ví, kde to bolí.
+      </p>
+      <p>
+        Výstupem nemusí být hotový kód. Stačí AI agent, automatizovaný workflow
+        nebo PoC postavený s&nbsp;Claude / Cursor / n8n. A ten chyták:
+        <strong>cokoliv vznikne, musí vzniknout ten den.</strong> Buď je to hotové,
+        nebo to byla dobrá zkušenost.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     TRACKS
+     ======================================================== -->
+<section class="tracks" id="tracks">
+  <div class="tracks__head">
+    <h2 class="tracks__title reveal">
+      Čtyři <em>tracky.</em><br>Vyber si bolístku.
+    </h2>
+    <p class="tracks__lead reveal" data-delay="1">
+      Témata vznikla z otevřených odpovědí v průzkumu. Cíleně mixují
+      hluboce technické věci s procesními. Každý si najde tu svoji.
+    </p>
+  </div>
+
+  <div class="tracks__grid">
+
+    <article class="track reveal">
+      <div class="track__num">TRACK 01 · 🤖</div>
+      <h3 class="track__title">AI &amp; <span class="track__title-glyph">Automation</span></h3>
+      <p class="track__desc">
+        AI asistenti a agenti, kteří uberou ruční práci, hledání informací a
+        opakované rozhodování.
+      </p>
+      <div class="track__example">
+        <ul class="track__ideas">
+          <li>AI bot, co sám navrhne fix a otevře PR</li>
+          <li>Shopsys „second brain“ — firemní AI mozek</li>
+          <li>Automatizace rutinního úkolu, co všechny štve</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="track reveal" data-delay="1">
+      <div class="track__num">TRACK 02 · 🛠️</div>
+      <h3 class="track__title">Platform &amp; <span class="track__title-glyph">DevEx</span></h3>
+      <p class="track__desc">
+        Nástroje, které vývojářům ušetří čas každý týden — od CI po lokální vývoj.
+      </p>
+      <div class="track__example">
+        <ul class="track__ideas">
+          <li>AI code review, co hlídá standardy v CI</li>
+          <li>Smart CLI, co opraví běžné chyby za tebe</li>
+          <li>AI parťák pro lokální vývoj a debugging</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="track reveal" data-delay="2">
+      <div class="track__num">TRACK 03 · 🧠</div>
+      <h3 class="track__title">Process &amp; <span class="track__title-glyph">Knowledge</span></h3>
+      <p class="track__desc">
+        AI nad procesy a znalostmi — ať se firemní chaos začne sám rozplétat.
+      </p>
+      <div class="track__example">
+        <ul class="track__ideas">
+          <li>Knowledge bot nad Confluence + Slack</li>
+          <li>AI onboarding průvodce pro nováčky</li>
+          <li>Asistent, co automatizuje schvalovací proces</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="track reveal" data-delay="3">
+      <div class="track__num">TRACK 04 · 📊</div>
+      <h3 class="track__title">Dashboards &amp; <span class="track__title-glyph">Health</span></h3>
+      <p class="track__desc">
+        AI překládá technické stavy do řeči, které rozumí každý — i mimo IT.
+      </p>
+      <div class="track__example">
+        <ul class="track__ideas">
+          <li>Dashboard zdraví eshopu pro netech lidi</li>
+          <li>AI hlídač, co odhalí výpadek při deploji</li>
+          <li>Souhrn logů a Sentry alertů v lidské řeči</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ========================================================
+     AI TOOLBOX · plný kredit
+     ======================================================== -->
+<section class="toolbox" id="toolbox">
+  <div class="toolbox__inner">
+
+    <div class="toolbox__head">
+      <h2 class="toolbox__title reveal">
+        AI sandbox.<br>
+        <em>Plný kredit.</em>
+      </h2>
+      <div class="toolbox__lead reveal" data-delay="1">
+        <p>
+          Firma platí účty za AI nástroje. <strong>Vyzkoušej i ty, ke kterým by
+          ses jindy nedostal.</strong> Žádné „došel mi credit ve&nbsp;14:00“ —
+          den je krátký, AI je rychlá, speedrun může začít.
+        </p>
+      </div>
+    </div>
+
+    <div class="toolbox__ledger reveal" data-delay="2">
+      <span><b>8</b> AI nástrojů</span>
+      <span><b>1</b> den</span>
+      <span><b>0</b> Kč z tvé kapsy</span>
+      <span><s>~12&nbsp;000&nbsp;Kč/měs</s> firma platí</span>
+    </div>
+
+    <div class="toolbox__grid">
+
+      <div class="tool reveal">
+        <div class="tool__top">
+          <div class="tool__logo">CL</div>
+          <div class="tool__badge">Plný kredit</div>
+        </div>
+        <div class="tool__name">Claude</div>
+        <div class="tool__desc">
+          Opus 4.7 + Sonnet 4.6. Hluboké uvažování, dlouhý kontext, code reasoning, agentní workflow.
+        </div>
+        <div class="tool__use">→ Vibe coding · agenti · review</div>
+      </div>
+
+      <div class="tool reveal" data-delay="1">
+        <div class="tool__top">
+          <div class="tool__logo">GPT</div>
+          <div class="tool__badge">Plný kredit</div>
+        </div>
+        <div class="tool__name">ChatGPT</div>
+        <div class="tool__desc">
+          GPT-5 + o1 reasoning. Univerzální asistent, vision, multimodal, code interpreter, vlastní GPTs.
+        </div>
+        <div class="tool__use">→ Brainstorm · vision · code</div>
+      </div>
+
+      <div class="tool reveal" data-delay="2">
+        <div class="tool__top">
+          <div class="tool__logo">CR</div>
+          <div class="tool__badge">Pro plán</div>
+        </div>
+        <div class="tool__name">Cursor</div>
+        <div class="tool__desc">
+          AI-first IDE. Multi-file editing, Composer, Agent mode, propojení s Claude / GPT-5.
+        </div>
+        <div class="tool__use">→ Speedrun coding</div>
+      </div>
+
+      <div class="tool reveal" data-delay="3">
+        <div class="tool__top">
+          <div class="tool__logo">GH</div>
+          <div class="tool__badge">Plný kredit</div>
+        </div>
+        <div class="tool__name">Copilot</div>
+        <div class="tool__desc">
+          GitHub Copilot. Inline completion, workspace chat, agent mode přímo v editoru.
+        </div>
+        <div class="tool__use">→ Editor-native AI</div>
+      </div>
+
+      <div class="tool reveal">
+        <div class="tool__top">
+          <div class="tool__logo">PP</div>
+          <div class="tool__badge">Pro plán</div>
+        </div>
+        <div class="tool__name">Perplexity</div>
+        <div class="tool__desc">
+          AI search s citacemi a deep research módem. Pro fakticky podloženou práci a rychlou rešerši.
+        </div>
+        <div class="tool__use">→ Research · rešerše</div>
+      </div>
+
+      <div class="tool reveal" data-delay="1">
+        <div class="tool__top">
+          <div class="tool__logo">N8</div>
+          <div class="tool__badge">Self-host</div>
+        </div>
+        <div class="tool__name">n8n</div>
+        <div class="tool__desc">
+          Visual workflow automation s AI nodes. Napojení na Slack, Jira, GitHub, OpenAI, cokoliv jiného.
+        </div>
+        <div class="tool__use">→ Agenti · workflow</div>
+      </div>
+
+      <div class="tool reveal" data-delay="2">
+        <div class="tool__top">
+          <div class="tool__logo">V0</div>
+          <div class="tool__badge">Plný kredit</div>
+        </div>
+        <div class="tool__name">v0 / Lovable</div>
+        <div class="tool__desc">
+          Prompt → UI. Rychlé webové prototypy bez Figmy. Generování komponent z popisu.
+        </div>
+        <div class="tool__use">→ Frontend speedrun</div>
+      </div>
+
+      <div class="tool reveal" data-delay="3">
+        <div class="tool__top">
+          <div class="tool__logo">GM</div>
+          <div class="tool__badge">Plný kredit</div>
+        </div>
+        <div class="tool__name">Gemini</div>
+        <div class="tool__desc">
+          Google Gemini 2.5 Pro. Multimodální, long context (1M+ tokenů), alternativní pohled na problém.
+        </div>
+        <div class="tool__use">→ Long-context · multi-modal</div>
+      </div>
+
+    </div>
+
+    <p class="toolbox__note reveal">
+      <strong>Chybí ti něco specifického?</strong> Napiš to do přihlášky.
+      Pokud to dává smysl <em>(ElevenLabs · Vapi · Replicate · LangSmith · cokoliv jiného)</em>,
+      dorobíme přístup do pátku.
+    </p>
+
+  </div>
+</section>
+
+<!-- ========================================================
+     PROGRAM
+     ======================================================== -->
+<section class="program" id="program">
+  <div class="program__inner">
+
+    <div class="program__head">
+      <h2 class="program__title reveal">
+        Program <em>dne.</em>
+      </h2>
+      <div class="program__note reveal" data-delay="1">
+        Ne nutně přesně. Hackathon má vždycky vlastní hlavu — ale rámec drží.
+        <strong>Mentoři jsou k dispozici po celou dobu (9:45–15:30)</strong>,
+        ne v jednom konkrétním slotu.
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline__row reveal">
+        <div class="timeline__time">9:00–9:20</div>
+        <div>
+          <div class="timeline__title">Intro: cíl, pravidla, <em>tracky</em></div>
+          <div class="timeline__desc">Krátký kickoff. Co se dnes děje, co se očekává, jak se hodnotí.</div>
+        </div>
+        <div class="timeline__tag">Společně</div>
+      </div>
+
+      <div class="timeline__row reveal" data-delay="1">
+        <div class="timeline__time">9:20–9:45</div>
+        <div>
+          <div class="timeline__title">Pitchování nápadů &amp; tvorba týmů</div>
+          <div class="timeline__desc">Každý kdo má nápad ho ve 30 sekundách pitchne. Pak se nabalí tým.</div>
+        </div>
+        <div class="timeline__tag">Networking</div>
+      </div>
+
+      <div class="timeline__row reveal" data-delay="2">
+        <div class="timeline__time">9:45–12:00</div>
+        <div>
+          <div class="timeline__title">Speedrun <em>(část 1)</em></div>
+          <div class="timeline__desc">Hluboká práce. Méně Slacku, víc Claude / Cursor / agentních nástrojů. Mentoři kolují kolem, ptej se kdykoliv.</div>
+        </div>
+        <div class="timeline__tag">Build</div>
+      </div>
+
+      <div class="timeline__row reveal" data-delay="3">
+        <div class="timeline__time">12:00–13:00</div>
+        <div>
+          <div class="timeline__title">Oběd 🍕</div>
+          <div class="timeline__desc">Pizza je nadhodnocená, ale tradice se ctí. Bude i něco zdravějšího.</div>
+        </div>
+        <div class="timeline__tag">Pauza</div>
+      </div>
+
+      <div class="timeline__row reveal" data-delay="4">
+        <div class="timeline__time">13:00–15:30</div>
+        <div>
+          <div class="timeline__title">Speedrun <em>(část 2)</em></div>
+          <div class="timeline__desc">Druhá vlna. Tlak roste, čas se krátí, agenti běží. Cíl: do 15:30 mít něco, co se dá ukázat.</div>
+        </div>
+        <div class="timeline__tag">Build</div>
+      </div>
+
+      <div class="timeline__row reveal" data-delay="5">
+        <div class="timeline__time">15:30–16:00</div>
+        <div>
+          <div class="timeline__title">Příprava prezentací</div>
+          <div class="timeline__desc">Ne PowerPointy. 3 minuty na ukázku toho, co vzniklo.</div>
+        </div>
+        <div class="timeline__tag">Wrap-up</div>
+      </div>
+
+      <div class="timeline__row reveal" data-delay="5">
+        <div class="timeline__time">16:00–17:00</div>
+        <div>
+          <div class="timeline__title">Demo + <em>vyhodnocení</em></div>
+          <div class="timeline__desc">Každý tým má 3 minuty. Porota vybere nejlepší výstupy. Žádné „pojďme se zítra sejít" — co je hotové, je hotové.</div>
+        </div>
+        <div class="timeline__tag">Demo Day</div>
+      </div>
+
+      <div class="timeline__row reveal" data-delay="5">
+        <div class="timeline__time">17:00+</div>
+        <div>
+          <div class="timeline__title">Social část <em>(dobrovolná)</em></div>
+          <div class="timeline__desc">Pivo / limča / co kdo chce. Žádné povinné teambuildingy.</div>
+        </div>
+        <div class="timeline__tag">Volné</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     PEOPLE / ROLE
+     ======================================================== -->
+<section class="people" id="lide">
+  <div class="people__inner">
+
+    <div class="people__head reveal">
+      <div class="people__eyebrow">Kdo to celé táhne</div>
+      <h2 class="people__title">
+        Lidé <em>za akcí.</em>
+      </h2>
+    </div>
+
+    <div class="people__groups reveal" data-delay="1">
+
+      <div class="people__group">
+        <div class="people__role">Organizátor <span>01</span></div>
+        <ul class="people__list">
+          <li class="person">
+            <span class="person__avatar">VK</span>
+            <span class="person__name">Vojtěch Korduliak</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="people__group">
+        <div class="people__role">Mentoři <span>01</span></div>
+        <ul class="people__list">
+          <li class="person">
+            <span class="person__avatar">JG</span>
+            <span class="person__name">Jan Górecki</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="people__group">
+        <div class="people__role">Porota <span>03</span></div>
+        <ul class="people__list">
+          <li class="person person--tbd">
+            <span class="person__avatar">JD</span>
+            <span class="person__name">John Doe</span>
+          </li>
+          <li class="person person--tbd">
+            <span class="person__avatar">JD</span>
+            <span class="person__name">John Doe</span>
+          </li>
+          <li class="person person--tbd">
+            <span class="person__avatar">JD</span>
+            <span class="person__name">John Doe</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================================
+     FAQ
+     ======================================================== -->
+<section class="faq" id="faq">
+  <div class="faq__inner">
+
+    <div class="reveal">
+      <h2 class="faq__title">
+        Lidi <em>se ptají.</em>
+      </h2>
+      <p class="faq__sub">
+        Otázky, co se objevily v průzkumu a kuloárech.
+        Odpovědi jsou krátké. Tak jak to máme rádi.
+      </p>
+    </div>
+
+    <div class="faq__list reveal" data-delay="1">
+
+      <div class="faq__item" data-open="false">
+        <button class="faq__q" aria-expanded="false">
+          <span class="faq__q-num">Q.01</span>
+          <span class="faq__q-text">Musím umět programovat?</span>
+          <span class="faq__q-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Ne. Stačí mít problém. Nejcennější člověk v týmu je často ten, kdo zná
+            uživatele a ví, kde to v praxi bolí. Můžeš pitchovat nápad, validovat
+            řešení, kreslit ve Figmě, nebo pomáhat psát zadání.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-open="false">
+        <button class="faq__q" aria-expanded="false">
+          <span class="faq__q-num">Q.02</span>
+          <span class="faq__q-text">Co když nemám tým?</span>
+          <span class="faq__q-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Tým se najde ráno během pitchování nápadů. Buď tě někdo nabere
+            k svému nápadu, nebo pitchneš ty a nabereš si lidi. Solo varianta
+            je taky OK — neexistuje tu pravidlo „minimální velikost týmu“.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-open="false">
+        <button class="faq__q" aria-expanded="false">
+          <span class="faq__q-num">Q.03</span>
+          <span class="faq__q-text">Musí být výstupem hotový kód?</span>
+          <span class="faq__q-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Ne. Stačí AI agent, automatizovaný workflow, prompt-driven nástroj,
+            AI-poháněný PoC, dokumentace generovaná z reality, nebo cokoliv co
+            s&nbsp;AI vznikne a reálně pomůže. Hodnotí se <em>užitečnost</em> a
+            <em>jasnost</em>, ne počet řádků.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-open="false">
+        <button class="faq__q" aria-expanded="false">
+          <span class="faq__q-num">Q.04</span>
+          <span class="faq__q-text">Co se stane s mým nápadem po hackathonu?</span>
+          <span class="faq__q-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Nic. A to je vlastně to nejlepší. <em>Jeden pracovní den, jeden pracovní
+            výstup.</em> Co stihneš dotáhnout do 16:00, to máš — prototyp, návrh,
+            PoC, automatizace, mock. Žádné „pak na tom budeme dělat dál",
+            žádný šuplík, žádné Q3 tickety. Buď je to hotové, nebo to byla
+            dobrá zkušenost. Obojí má hodnotu.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-open="false">
+        <button class="faq__q" aria-expanded="false">
+          <span class="faq__q-num">Q.05</span>
+          <span class="faq__q-text">Můžu být jen porotce / mentor?</span>
+          <span class="faq__q-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Jo. V průzkumu o tyhle role byl nezanedbatelný zájem. Mentor pomáhá
+            týmům odbourávat slepé uličky, porotce hodnotí výstupy podle
+            dopadu, ne podle pixel-perfect detailu.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-open="false">
+        <button class="faq__q" aria-expanded="false">
+          <span class="faq__q-num">Q.06</span>
+          <span class="faq__q-text">Můžu přijít jen na pizzu?</span>
+          <span class="faq__q-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Můžeš. Ale dovolíme si tě jemně přesvědčit, abys aspoň jeden
+            pitch poslechl/a. Pizza je dobrá motivace, ale demo den je
+            překvapivě návykový.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" data-open="false">
+        <button class="faq__q" aria-expanded="false">
+          <span class="faq__q-num">Q.07</span>
+          <span class="faq__q-text">A když to vedení neschválí?</span>
+          <span class="faq__q-toggle" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__a">
+          <div class="faq__a-inner">
+            Argumenty máme připravené — jeden den, jasný business benefit, žádný
+            závazek do Q3. Pokud i pak ne, uděláme menší verzi v pracovní době
+            v menším okruhu lidí. Ale fakt to nedoporučujeme.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================================================
+     SIGNUP CTA
+     ======================================================== -->
+<section class="signup" id="signup">
+  <div class="signup__bg" aria-hidden="true">smarter.</div>
+
+  <div class="signup__inner">
+
+    <div class="signup__eyebrow">Konec stránky · začátek akce</div>
+
+    <h2 class="signup__title reveal">
+      Tak co.<br>Jdeš <em>do toho?</em>
+    </h2>
+
+    <div class="signup__grid">
+      <p class="signup__lead reveal" data-delay="1">
+        Přihlas se přes interní formulář. Není to závazné — jen tím dáš najevo,
+        že o tom uvažuješ. Když nás bude dost, akce dostane reálný termín.
+        Když ne, alespoň ušetříme spoustě lidí kalendářové bloky.
+      </p>
+
+      <div class="signup__action reveal" data-delay="2">
+        <a href="#" class="signup__btn" id="signupBtn">
+          Přihlásit se
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="#" class="signup__btn signup__btn--alt" id="ideaBtn">
+          Mám nápad / chci pitchnout
+          <span aria-hidden="true">↗</span>
+        </a>
+        <div class="signup__deadline">
+          Forma sběru: interní formulář / Slack #work-smarter-day
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ========================================================
+     FOOTER
+     ======================================================== -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">Work <em>Smarter</em> Day</div>
+      <div class="footer__tagline">
+        Interní iniciativa Shopsysu pro lidi, co mají rádi věci dotažené.
+        Není to oficiální produkt. Je to nápad, který si přejeme schválit.
+      </div>
+    </div>
+
+    <div>
+      <div class="footer__col-title">Org info</div>
+      <ul class="footer__list">
+        <li>Pátek · 9:00–17:00</li>
+        <li>Ostrava HQ + online</li>
+        <li>4 tracky · týmy 2–5</li>
+        <li>Solo povoleno</li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer__col-title">Kontakt</div>
+      <ul class="footer__list">
+        <li>Slack #work-smarter-day</li>
+        <li>Interní formulář</li>
+        <li>Nebo prostě zastav v Ostravě</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div>© Shopsys · Interní · 2026 · <em>neoficiální verze</em></div>
+    <div>Vyrobeno za jeden večer s lehkou nedbalostí a velkou nadějí.</div>
+  </div>
+</footer>
+
+<!-- ========================================================
+     STICKY EASTER-EGG NOTE
+     ======================================================== -->
+<div class="sticky-note" id="stickyNote" aria-hidden="true">
+  <button class="sticky-note__close" id="stickyClose" aria-label="Zavřít">×</button>
+  <strong>psst —</strong><br>
+  fakt to není o&nbsp;ceně. <br>
+  lidi chtějí <em>čas</em>.
+</div>
+
+<!-- ========================================================
+     JS
+     ======================================================== -->
+<script>
+(() => {
+  'use strict';
+
+  /* -- Reveal on scroll -------------------------------------- */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-in'));
+  }
+
+  /* -- Stat counters ----------------------------------------- */
+  const counters = document.querySelectorAll('[data-count]');
+  const animateCount = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const duration = 1400;
+    const start = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    const step = (now) => {
+      const p = Math.min(1, (now - start) / duration);
+      el.textContent = Math.round(target * ease(p));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  if ('IntersectionObserver' in window) {
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCount(e.target);
+          cio.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    counters.forEach(c => cio.observe(c));
+  } else {
+    counters.forEach(c => c.textContent = c.dataset.count);
+  }
+
+  /* -- FAQ accordion ----------------------------------------- */
+  document.querySelectorAll('.faq__item').forEach(item => {
+    const btn = item.querySelector('.faq__q');
+    const a   = item.querySelector('.faq__a');
+    btn.addEventListener('click', () => {
+      const open = item.dataset.open === 'true';
+      item.dataset.open = (!open).toString();
+      btn.setAttribute('aria-expanded', (!open).toString());
+      if (!open) {
+        a.style.maxHeight = a.scrollHeight + 'px';
+      } else {
+        a.style.maxHeight = '0px';
+      }
+    });
+  });
+
+  /* -- Sticky note (shows once user has scrolled past hero) -- */
+  const note = document.getElementById('stickyNote');
+  const noteClose = document.getElementById('stickyClose');
+  let noteShown = false;
+  const NOTE_KEY = 'wsd_note_dismissed_v1';
+
+  const showNote = () => {
+    if (noteShown) return;
+    if (sessionStorage.getItem(NOTE_KEY) === '1') return;
+    note.classList.add('is-visible');
+    note.setAttribute('aria-hidden', 'false');
+    noteShown = true;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight * 0.6) showNote();
+  }, { passive: true });
+
+  noteClose.addEventListener('click', () => {
+    note.classList.remove('is-visible');
+    note.setAttribute('aria-hidden', 'true');
+    try { sessionStorage.setItem(NOTE_KEY, '1'); } catch (e) {}
+  });
+
+  /* -- Signup placeholder behavior --------------------------- */
+  const handleStub = (btn, label) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const original = btn.innerHTML;
+      btn.innerHTML = `${label} <span aria-hidden="true">✓</span>`;
+      btn.style.pointerEvents = 'none';
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.style.pointerEvents = '';
+      }, 2200);
+    });
+  };
+  const signupBtn = document.getElementById('signupBtn');
+  const ideaBtn   = document.getElementById('ideaBtn');
+  if (signupBtn) handleStub(signupBtn, 'Skvěle. Brzy ti přijde info.');
+  if (ideaBtn)   handleStub(ideaBtn, 'Super, posíláme formulář.');
+
+  /* -- Dev easter egg ---------------------------------------- */
+  if (typeof console !== 'undefined') {
+    console.log(
+      '%c👀 vidíme tě, dev.\n%cKdyž máš nápad pro WSD, hoď ho do #work-smarter-day.\n%c— Tým za Work Smarter Day',
+      'font-size: 14px; font-weight: 700; color: #D9381E;',
+      'font-size: 12px; color: #16140F;',
+      'font-size: 11px; font-style: italic; color: #6B5F4F;'
+    );
+  }
+
+})();
+</script>
+
+</body>
+</html>
