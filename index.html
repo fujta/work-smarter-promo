@@ -603,23 +603,6 @@ button { font: inherit; cursor: pointer; }
 .manifesto__body p + p { margin-top: 1.1rem; }
 .manifesto__body strong { font-weight: 700; }
 
-.stamp {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--stamp);
-  border: 2.5px solid var(--stamp);
-  padding: 0.35rem 0.75rem;
-  transform: rotate(-3deg);
-  box-shadow: inset 0 0 0 1px var(--paper);
-  opacity: 0.92;
-  margin-top: 2rem;
-  position: relative;
-}
-
 /* ---------------------------------------------------------
    Data section — the leadership convincer
    --------------------------------------------------------- */
@@ -843,6 +826,19 @@ button { font: inherit; cursor: pointer; }
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--stamp);
+}
+
+.track--wild {
+  border-style: dashed;
+  background: var(--highlight);
+  min-height: 0;
+}
+@media (min-width: 760px) {
+  .track--wild { grid-column: 1 / -1; }
+}
+.track--wild .track__desc {
+  color: var(--ink);
+  max-width: 62ch;
 }
 
 .track__title {
@@ -1534,7 +1530,7 @@ button { font: inherit; cursor: pointer; }
   background: var(--paper);
 }
 @media (min-width: 800px) {
-  .people__groups { grid-template-columns: repeat(3, 1fr); }
+  .people__groups { grid-template-columns: repeat(2, 1fr); }
 }
 
 .people__group {
@@ -1961,57 +1957,6 @@ button { font: inherit; cursor: pointer; }
 .reveal[data-delay="5"] { transition-delay: 0.40s; }
 
 /* ---------------------------------------------------------
-   Floating "psst" sticky-note (the goofy easter egg)
-   --------------------------------------------------------- */
-
-.sticky-note {
-  position: fixed;
-  bottom: 1.25rem;
-  left: 1.25rem;
-  z-index: 60;
-  background: var(--highlight);
-  border: 1.5px solid var(--ink);
-  padding: 0.75rem 0.95rem;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  line-height: 1.4;
-  max-width: 220px;
-  transform: rotate(-3deg);
-  box-shadow: 3px 3px 0 var(--ink);
-  cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-.sticky-note.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: rotate(-3deg) translateY(0);
-}
-.sticky-note:hover {
-  transform: rotate(0deg) scale(1.03);
-}
-.sticky-note__close {
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  background: transparent;
-  border: none;
-  font-family: var(--mono);
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  color: var(--ink);
-  opacity: 0.6;
-}
-.sticky-note__close:hover { opacity: 1; }
-.sticky-note strong { font-weight: 700; }
-
-@media (max-width: 520px) {
-  .sticky-note { display: none; }
-}
-
-/* ---------------------------------------------------------
    Reduced motion
    --------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -2097,7 +2042,7 @@ button { font: inherit; cursor: pointer; }
       <div class="hero__meta reveal" data-delay="4">
         <div class="hero__meta-label">Kdy</div>
         <div class="hero__meta-value">Pátek · 9–17 h</div>
-        <div class="hero__meta-tail">Datum bude potvrzeno po schválení.</div>
+        <div class="hero__meta-tail">Přesné datum oznámíme na Slacku.</div>
       </div>
 
       <div class="hero__meta reveal" data-delay="5">
@@ -2108,7 +2053,7 @@ button { font: inherit; cursor: pointer; }
     </div>
 
     <div class="hero__ctas reveal" data-delay="5">
-      <a href="#signup" class="btn btn--primary">
+      <a href="https://forms.gle/1xLBjCPokD3ooDw26" target="_blank" rel="noopener" class="btn btn--primary">
         Chci se přihlásit
         <span class="btn__arrow" aria-hidden="true">→</span>
       </a>
@@ -2137,7 +2082,6 @@ button { font: inherit; cursor: pointer; }
         <small>§ 01 · Co to vlastně je</small>
         Hackathon, který <br>není pro <em>nerdy.</em>
       </h2>
-      <span class="stamp">Schváleno průzkumem ✓</span>
     </div>
 
     <div class="manifesto__body reveal" data-delay="1">
@@ -2167,7 +2111,8 @@ button { font: inherit; cursor: pointer; }
     </h2>
     <p class="tracks__lead reveal" data-delay="1">
       Témata vznikla z otevřených odpovědí v průzkumu. Cíleně mixují
-      hluboce technické věci s procesními. Každý si najde tu svoji.
+      hluboce technické věci s procesními. Každý si najde tu svoji —
+      a když ne, vymyslí si vlastní.
     </p>
   </div>
 
@@ -2234,6 +2179,15 @@ button { font: inherit; cursor: pointer; }
       </div>
     </article>
 
+    <article class="track track--wild reveal" data-delay="4">
+      <div class="track__num">TRACK ∞ · 🃏</div>
+      <h3 class="track__title">Žolík: <span class="track__title-glyph">tvůj vlastní nápad</span></h3>
+      <p class="track__desc">
+        Tracky jsou inspirace, ne mantinely. Máš nápad, který se nikam nevejde,
+        ale dává smysl a někomu reálně pomůže? Pak je v&nbsp;hře.
+      </p>
+    </article>
+
   </div>
 </section>
 
@@ -2272,7 +2226,7 @@ button { font: inherit; cursor: pointer; }
         </div>
         <div class="tool__name">Claude</div>
         <div class="tool__desc">
-          Opus 4.7 + Sonnet 4.6. Hluboké uvažování, dlouhý kontext, code reasoning, agentní workflow.
+          Hluboké uvažování, dlouhý kontext, code reasoning a agentní workflow. Vždy s nejnovějšími modely.
         </div>
         <div class="tool__use">→ Vibe coding · agenti · review</div>
       </div>
@@ -2283,7 +2237,7 @@ button { font: inherit; cursor: pointer; }
         </div>
         <div class="tool__name">ChatGPT</div>
         <div class="tool__desc">
-          GPT-5 + o1 reasoning. Univerzální asistent, vision, multimodal, code interpreter, vlastní GPTs.
+          Univerzální asistent — vision, multimodalita, code interpreter, vlastní GPTs.
         </div>
         <div class="tool__use">→ Brainstorm · vision · code</div>
       </div>
@@ -2294,7 +2248,7 @@ button { font: inherit; cursor: pointer; }
         </div>
         <div class="tool__name">Cursor</div>
         <div class="tool__desc">
-          AI-first IDE. Multi-file editing, Composer, Agent mode, propojení s Claude / GPT-5.
+          AI-first IDE. Multi-file editing, Composer, Agent mode, napojení na nejlepší dostupné modely.
         </div>
         <div class="tool__use">→ Speedrun coding</div>
       </div>
@@ -2349,7 +2303,7 @@ button { font: inherit; cursor: pointer; }
         </div>
         <div class="tool__name">Gemini</div>
         <div class="tool__desc">
-          Google Gemini 2.5 Pro. Multimodální, long context (1M+ tokenů), alternativní pohled na problém.
+          Multimodální AI od Googlu s extrémně dlouhým kontextem. Alternativní pohled na problém.
         </div>
         <div class="tool__use">→ Long-context · multi-modal</div>
       </div>
@@ -2401,19 +2355,19 @@ button { font: inherit; cursor: pointer; }
       </div>
 
       <div class="timeline__row reveal" data-delay="3">
-        <div class="timeline__time">12:00–13:00</div>
+        <div class="timeline__time">12:00–12:30</div>
         <div>
           <div class="timeline__title">Oběd 🍕</div>
-          <div class="timeline__desc">Pizza je nadhodnocená, ale tradice se ctí. Bude i něco zdravějšího.</div>
+          <div class="timeline__desc">Pizza je nadhodnocená, ale tradice se ctí. Jíst se dá i nad rozjetým agentem.</div>
         </div>
-        <div class="timeline__tag">Pauza</div>
+        <div class="timeline__tag">Volné</div>
       </div>
 
       <div class="timeline__row reveal" data-delay="4">
-        <div class="timeline__time">13:00–15:30</div>
+        <div class="timeline__time">12:30–16:00</div>
         <div>
           <div class="timeline__title">Speedrun <em>(část 2)</em></div>
-          <div class="timeline__desc">Druhá vlna. Tlak roste, čas se krátí, agenti běží. Cíl: do 15:30 mít něco, co se dá ukázat.</div>
+          <div class="timeline__desc">Druhá vlna. Tlak roste, čas se krátí, agenti běží. Cíl: do 16:00 mít něco, co se dá ukázat.</div>
         </div>
         <div class="timeline__tag">Build</div>
       </div>
@@ -2466,17 +2420,7 @@ button { font: inherit; cursor: pointer; }
       </div>
 
       <div class="people__group">
-        <div class="people__role">Mentoři <span>01</span></div>
-        <ul class="people__list">
-          <li class="person person--tbd">
-            <span class="person__avatar">JD</span>
-            <span class="person__name">John Doe</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="people__group">
-        <div class="people__role">Porota <span>03</span></div>
+        <div class="people__role">Mentoři &amp; porota <span>03</span></div>
         <ul class="people__list">
           <li class="person person--tbd">
             <span class="person__avatar">JD</span>
@@ -2630,19 +2574,15 @@ button { font: inherit; cursor: pointer; }
 
     <div class="signup__grid">
       <p class="signup__lead reveal" data-delay="1">
-        Přihlas se přes interní formulář. Není to závazné — jen tím dáš najevo,
-        že o tom uvažuješ. Když nás bude dost, akce dostane reálný termín.
-        Když ne, alespoň ušetříme spoustě lidí kalendářové bloky.
+        Přihlas se přes formulář — zabere to minutu. Čím dřív budeme vědět,
+        kolik nás bude, tím líp naplánujeme týmy, jídlo i AI kredity.
+
       </p>
 
       <div class="signup__action reveal" data-delay="2">
-        <a href="#" class="signup__btn" id="signupBtn">
-          Přihlásit se
+        <a href="https://forms.gle/1xLBjCPokD3ooDw26" target="_blank" rel="noopener" class="signup__btn" id="signupBtn">
+          Chci se přihlásit
           <span aria-hidden="true">→</span>
-        </a>
-        <a href="#" class="signup__btn signup__btn--alt" id="ideaBtn">
-          Mám nápad / chci pitchnout
-          <span aria-hidden="true">↗</span>
         </a>
         <div class="signup__deadline">
           Forma sběru: interní formulář / Slack #work-smarter-day
@@ -2663,8 +2603,8 @@ button { font: inherit; cursor: pointer; }
     <div>
       <div class="footer__brand">Work <em>Smarter</em> Day</div>
       <div class="footer__tagline">
-        Interní iniciativa Shopsysu pro lidi, co mají rádi věci dotažené.
-        Není to oficiální produkt. Je to nápad, který si přejeme schválit.
+        Interní akce Shopsysu pro lidi, co mají rádi věci dotažené.
+        Jeden pátek, plný AI kredit a problém, který tě dlouho štve.
       </div>
     </div>
 
@@ -2689,20 +2629,10 @@ button { font: inherit; cursor: pointer; }
   </div>
 
   <div class="footer__bottom">
-    <div>© Shopsys · Interní · 2026 · <em>neoficiální verze</em></div>
+    <div>© Shopsys · Interní · 2026 · <em>edice 01</em></div>
     <div>Vyrobeno za jeden večer s lehkou nedbalostí a velkou nadějí.</div>
   </div>
 </footer>
-
-<!-- ========================================================
-     STICKY EASTER-EGG NOTE
-     ======================================================== -->
-<div class="sticky-note" id="stickyNote" aria-hidden="true">
-  <button class="sticky-note__close" id="stickyClose" aria-label="Zavřít">×</button>
-  <strong>psst —</strong><br>
-  fakt to není o&nbsp;ceně. <br>
-  lidi chtějí <em>čas</em>.
-</div>
 
 <!-- ========================================================
      JS
@@ -2770,48 +2700,6 @@ button { font: inherit; cursor: pointer; }
       }
     });
   });
-
-  /* -- Sticky note (shows once user has scrolled past hero) -- */
-  const note = document.getElementById('stickyNote');
-  const noteClose = document.getElementById('stickyClose');
-  let noteShown = false;
-  const NOTE_KEY = 'wsd_note_dismissed_v1';
-
-  const showNote = () => {
-    if (noteShown) return;
-    if (sessionStorage.getItem(NOTE_KEY) === '1') return;
-    note.classList.add('is-visible');
-    note.setAttribute('aria-hidden', 'false');
-    noteShown = true;
-  };
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > window.innerHeight * 0.6) showNote();
-  }, { passive: true });
-
-  noteClose.addEventListener('click', () => {
-    note.classList.remove('is-visible');
-    note.setAttribute('aria-hidden', 'true');
-    try { sessionStorage.setItem(NOTE_KEY, '1'); } catch (e) {}
-  });
-
-  /* -- Signup placeholder behavior --------------------------- */
-  const handleStub = (btn, label) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const original = btn.innerHTML;
-      btn.innerHTML = `${label} <span aria-hidden="true">✓</span>`;
-      btn.style.pointerEvents = 'none';
-      setTimeout(() => {
-        btn.innerHTML = original;
-        btn.style.pointerEvents = '';
-      }, 2200);
-    });
-  };
-  const signupBtn = document.getElementById('signupBtn');
-  const ideaBtn   = document.getElementById('ideaBtn');
-  if (signupBtn) handleStub(signupBtn, 'Skvěle. Brzy ti přijde info.');
-  if (ideaBtn)   handleStub(ideaBtn, 'Super, posíláme formulář.');
 
   /* -- Dev easter egg ---------------------------------------- */
   if (typeof console !== 'undefined') {
