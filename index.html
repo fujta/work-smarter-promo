@@ -1607,6 +1607,16 @@ button { font: inherit; cursor: pointer; }
 }
 .person--tbd .person__name { color: var(--ink-soft); }
 
+.person__subrole {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.15rem;
+}
+
 .people__tbd {
   font-family: var(--mono);
   font-size: 0.86rem;
@@ -2024,7 +2034,7 @@ button { font: inherit; cursor: pointer; }
         </textPath>
       </text>
       <circle class="disc__center" cx="100" cy="100" r="36"/>
-      <text class="disc__icon" x="100" y="111" text-anchor="middle">WSD</text>
+      <text class="disc__icon" x="100" y="100" text-anchor="middle" dominant-baseline="central">WSD</text>
     </svg>
 
     <div class="hero__eyebrow reveal">
@@ -2423,7 +2433,16 @@ button { font: inherit; cursor: pointer; }
         <ul class="people__list">
           <li class="person">
             <span class="person__avatar">VK</span>
-            <span class="person__name">Vojtěch Korduliak</span>
+            <div>
+              <div class="person__name">Vojtěch Korduliak</div>
+            </div>
+          </li>
+          <li class="person">
+            <span class="person__avatar">TK</span>
+            <div>
+              <div class="person__name">Tomáš Kučera</div>
+              <div class="person__subrole">Pomocný umpalumpa</div>
+            </div>
           </li>
         </ul>
       </div>
@@ -2581,7 +2600,7 @@ button { font: inherit; cursor: pointer; }
           <span aria-hidden="true">→</span>
         </a>
         <div class="signup__deadline">
-          Více info na Slacku v #work-smarter-day
+          Více info na Slacku v #sho-work-smarter-day
         </div>
       </div>
     </div>
@@ -2617,7 +2636,7 @@ button { font: inherit; cursor: pointer; }
     <div>
       <div class="footer__col-title">Kontakt</div>
       <ul class="footer__list">
-        <li>Slack #work-smarter-day</li>
+        <li>Slack #sho-work-smarter-day</li>
         <li>Interní formulář</li>
         <li>Nebo prostě zastav v Ostravě</li>
       </ul>
@@ -2700,7 +2719,7 @@ button { font: inherit; cursor: pointer; }
   /* -- Dev easter egg ---------------------------------------- */
   if (typeof console !== 'undefined') {
     console.log(
-      '%c👀 vidíme tě, dev.\n%cKdyž máš nápad pro WSD, hoď ho do #work-smarter-day.\n%c— Tým za Work Smarter Day',
+      '%c👀 vidíme tě, dev.\n%cKdyž máš nápad pro WSD, hoď ho do #sho-work-smarter-day.\n%c— Tým za Work Smarter Day',
       'font-size: 14px; font-weight: 700; color: #D9381E;',
       'font-size: 12px; color: #16140F;',
       'font-size: 11px; font-style: italic; color: #6B5F4F;'
