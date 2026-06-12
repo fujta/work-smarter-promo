@@ -1607,6 +1607,16 @@ button { font: inherit; cursor: pointer; }
 }
 .person--tbd .person__name { color: var(--ink-soft); }
 
+.people__tbd {
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  font-style: italic;
+  padding-top: 0.4rem;
+}
+
 /* ---------------------------------------------------------
    FAQ
    --------------------------------------------------------- */
@@ -2030,7 +2040,7 @@ button { font: inherit; cursor: pointer; }
 
     <div class="hero__forall reveal" data-delay="2">
       <span class="hero__forall-tag">Pro vývojáře i ne-vývojáře</span>
-      <span class="hero__forall-text">Nemusíš umět <b>řádek kódu</b>. Stačí znát problém, který chceš vyřešit.</span>
+      <span class="hero__forall-text">Nemusíš umět napsat <b>řádek kódu</b>. Stačí znát problém, který chceš vyřešit.</span>
     </div>
 
     <div class="hero__sub">
@@ -2066,7 +2076,6 @@ button { font: inherit; cursor: pointer; }
     <div class="hero__scroll reveal" data-delay="5" aria-hidden="true">
       <span>Scroll</span>
       <span class="hero__scroll-line"></span>
-      <span>Důkazy uvnitř</span>
     </div>
 
   </div>
@@ -2339,8 +2348,8 @@ button { font: inherit; cursor: pointer; }
       <div class="timeline__row reveal">
         <div class="timeline__time">9:00–9:45</div>
         <div>
-          <div class="timeline__title">Intro, pitchování &amp; <em>tvorba týmů</em></div>
-          <div class="timeline__desc">Krátký kickoff: co se dnes děje, jak se hodnotí. Pak každý, kdo má nápad, ho ve 30 sekundách pitchne a nabalí se tým.</div>
+          <div class="timeline__title">Intro, nápady &amp; <em>tvorba týmů</em></div>
+          <div class="timeline__desc">Krátký kickoff: co se dnes děje, jak se hodnotí. Pak se rozeberou nápady a vytvoří týmy.</div>
         </div>
         <div class="timeline__tag">Společně</div>
       </div>
@@ -2420,21 +2429,8 @@ button { font: inherit; cursor: pointer; }
       </div>
 
       <div class="people__group">
-        <div class="people__role">Mentoři &amp; porota <span>03</span></div>
-        <ul class="people__list">
-          <li class="person person--tbd">
-            <span class="person__avatar">JD</span>
-            <span class="person__name">John Doe</span>
-          </li>
-          <li class="person person--tbd">
-            <span class="person__avatar">JD</span>
-            <span class="person__name">John Doe</span>
-          </li>
-          <li class="person person--tbd">
-            <span class="person__avatar">JD</span>
-            <span class="person__name">John Doe</span>
-          </li>
-        </ul>
+        <div class="people__role">Mentoři &amp; porota <span>—</span></div>
+        <p class="people__tbd">Bude upřesněno.</p>
       </div>
 
     </div>
@@ -2585,7 +2581,7 @@ button { font: inherit; cursor: pointer; }
           <span aria-hidden="true">→</span>
         </a>
         <div class="signup__deadline">
-          Forma sběru: interní formulář / Slack #work-smarter-day
+          Více info na Slacku v #work-smarter-day
         </div>
       </div>
     </div>
