@@ -192,6 +192,11 @@
       gap: 0.55rem;
     }
 
+    @media (max-width: 519px) {
+      .nav__version { display: none; }
+      .nav { padding-inline: 1rem; }
+    }
+
     .nav__dot {
       width: 11px;
       height: 11px;
@@ -268,6 +273,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
+      white-space: nowrap;
     }
 
     .nav__cta:hover {
@@ -565,23 +571,19 @@
 
     /* Rotating disc badge (hero) */
     .disc {
+      display: none;
       position: absolute;
-      top: 0.5rem;
-      right: 0;
-      width: 170px;
-      height: 170px;
+      top: 0;
+      right: 1rem;
+      width: 200px;
+      height: 200px;
       pointer-events: none;
       animation: rotate 22s linear infinite;
       z-index: 5;
     }
 
-    @media (min-width: 600px) {
-      .disc {
-        width: 200px;
-        height: 200px;
-        top: 0;
-        right: 1rem;
-      }
+    @media (min-width: 880px) {
+      .disc { display: block; }
     }
 
     @media (min-width: 1024px) {
@@ -2319,7 +2321,7 @@
   <nav class="nav" aria-label="Hlavní">
     <div class="nav__brand">
       <span class="nav__dot" aria-hidden="true"></span>
-      Shopsys&nbsp;·&nbsp;WSD&nbsp;<span style="opacity:0.5">/</span>&nbsp;v.01
+      Shopsys&nbsp;·&nbsp;WSD<span class="nav__version">&nbsp;<span style="opacity:0.5">/</span>&nbsp;v.01</span>
     </div>
     <div class="nav__links" aria-hidden="false">
       <a href="#manifesto">Co to je</a>
